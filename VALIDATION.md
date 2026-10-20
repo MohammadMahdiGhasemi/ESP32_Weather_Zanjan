@@ -1,0 +1,11 @@
+# Verification
+- Arduino CLI build for esp32:esp32:esp32, Espressif Arduino core 3.3.11: successful.
+- Dependencies: hd44780 1.3.2, ArduinoJson 6.21.5.
+- Flash: 1,056,012 bytes (80%). Static RAM: 50,104 bytes (15%).
+- Host C++ tests: valid temperature/humidity/wind, zero values, NaN rejection, range rejection, staleness timeout and uint32 rollover: PASS.
+- Live Open-Meteo responses for both cities fetched and checked for numeric current values and km/h wind units.
+- Coordinates verified against Open-Meteo geocoding (Zanjan, Qayen).
+- HTTPS verification is enabled in firmware using the bundled ISRG Root X1 certificate; NTP is required first.
+- The execution environment routes HTTPS through a proxy. A root-only test here could not authenticate the proxy's certificate, and direct DNS was unavailable. Consequently the supplied CA's direct end-to-end connection to Open-Meteo still needs validation on the board/network. No insecure TLS fallback is used.
+- Not hardware-tested: LCD wiring/voltage compatibility, physical display, Wi-Fi recovery, actual ESP32 HTTPS handshake and long-running behavior.
+- API data are model-derived weather for a grid near the requested coordinates, not an indoor sensor measurement.
